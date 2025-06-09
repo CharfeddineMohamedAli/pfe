@@ -1,0 +1,297 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wedding Day - Event Planning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Styles -->
+  <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/png">
+
+  <style>
+    /* Custom style for form */
+    #eventForm {
+      display: none;
+      margin-top: 30px;
+      padding: 30px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    }
+    .plan-btn {
+      margin: 50px auto 20px auto;
+      display: block;
+      background-color: #D59A57;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    .plan-btn:hover {
+      background-color: #b57d45;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+    }
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .form-container button[type="submit"] {
+      background-color: #D59A57;
+      color: #fff;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 30px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+<!--====== HEADER ======-->
+<section class="header_area">
+  <div class="header_navbar">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <nav class="navbar navbar-expand-lg">
+                      <a class="navbar-brand" href="index.html">
+                          <img src="/assets/images/logo3.png" alt="Logo">
+                      </a>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="toggler-icon"></span>
+                          <span class="toggler-icon"></span>
+                          <span class="toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                          <ul id="nav" class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                  <a class="nav-link" >Bonjour {{nom}}</a>
+                              </li>
+                             
+                              <li class="nav-item active">
+                                  <a class="nav-link" (click)="scrollToReser()">Les demandes de réservation</a>
+                              </li>
+                             <li class="nav-item active">
+<a class="nav-link" (click)="scrollToSection()">Vos sous services</a>
+</li>
+ <li class="nav-item active">
+                                  <a (click)="scrollToProfil()" class="nav-link" >Profil</a>
+                              </li>
+                              <li class="nav-item active">
+                                  <a (click)="deconnexion()" class="nav-link" >Deconnexion</a>
+                              </li>
+
+
+                              <!--
+                              <li class="nav-item active">
+                                  <a class="page-scroll" href="#home">Home</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="page-scroll" href="#couple">Couple</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="page-scroll" href="#our_love">Story</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="page-scroll" href="#gallery">Gallery</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="page-scroll" href="#event">Event</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="page-scroll" href="#contact">RSVP</a>
+                              </li>!-->
+                          </ul>
+                      </div> <!-- navbar collapse -->
+                  </nav> <!-- navbar -->
+              </div>
+          </div> <!-- row -->
+      </div> <!-- container -->
+  </div> <!-- header navbar -->
+
+ 
+</section>
+<div id="home" class="header_slider slider-active">
+    
+            <div class="single_slider bg_cover d-flex align-items-center" style="background-image: url(assets/images/slider-1.jpg)">
+  <div class="container text-center">
+     <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="slider_content text-center">
+<button class="plan-btn" (click)="showForm()">Proposer un sous-service</button>
+
+<div class="form-container form" *ngIf="showEventForm" style="background-color: white;">
+  <form (ngSubmit)="onSubmit()">
+    <h2>Création de Sous-Service</h2>
+
+    <!-- Type d'événement -->
+
+    <!-- Service lié au type d'événement -->
+    <label for="service">Service</label>
+    <select id="service" [(ngModel)]="selectedServiceId" name="service" style=" width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 1rem;
+        font-family: inherit;
+        box-sizing: border-box;" required>
+      <option *ngFor="let service of services" [value]="service.id">{{ service.nom }}</option>
+    </select>
+
+    <!-- Champs pour les sous-services -->
+      <label>Nom du sous-service</label>
+      <input type="text" [(ngModel)]="nom" name="sousServiceNom" placeholder="" required>
+         <label>Description</label>
+      <input type="text" [(ngModel)]="description" name="sousServiceDescription">
+     <label>Ville</label>
+<select [(ngModel)]="ville" name="sousServiceVille" 
+style=" width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 1rem;
+        font-family: inherit;
+        box-sizing: border-box;" required>
+  <option *ngFor="let ville of villes" [value]="ville">
+    {{ ville }}
+  </option>
+</select>
+      <label>Prix</label>
+      <input type="number" [(ngModel)]="prix" name="sousServicePrix" required>
+
+    <br /><br />
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+
+    </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+<section id="couple" class="couple_area pt-120 pb-130">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div >
+                    <div class="section_title text-center pb-30">
+<h2 style="text-align: center; color: #D59A57;">Vos sous services</h2>
+<div #vosServicesSection>
+  <div *ngFor="let sousService of sousServices" class="service-card">
+    <ng-container *ngIf="sousService.id !== editingId">
+      <h3>{{ sousService.nom }} {{ sousService.prix }} dt</h3>
+      <p>{{ sousService.ville }}</p>
+      <button (click)="startEdit(sousService)" class="btn-edit">Modifier</button>
+      <button (click)="onSupprimerSousService(sousService)" class="btn-decline">Supprimer</button>
+    </ng-container>
+
+    <!-- Formulaire de modification -->
+    <form *ngIf="sousService.id === editingId" (ngSubmit)="submitEdit()">
+      <input [(ngModel)]="editForm.nom" name="nom" placeholder="Nom" required />
+      <input type="number" [(ngModel)]="editForm.prix" name="prix" placeholder="Prix" required />
+      <input [(ngModel)]="editForm.ville" name="ville" placeholder="Ville" required />
+      
+      <button  class="btn-approve" type="submit">Enregistrer</button>
+      <button class="btn-decline" type="button" (click)="cancelEdit()">Annuler</button>
+    </form>
+  </div>
+</div>
+
+
+  <section  #vosReserv class="reservation-list-section" style="padding: 40px; background-color: #f9f9f9;">
+  <h2 style="text-align: center; color: #D59A57;">Vos Réservations Groupées</h2>
+
+  <div *ngIf="reservations.length > 0; else noReservations">
+    <div *ngFor="let reservation of reservations" class="reservation-card">
+      
+      <h4>Client : {{ reservation.client.nom }} {{ reservation.client.prenom }}</h4>
+      <p><strong>Date :</strong> {{ reservation.date }}</p>
+      <p><strong>Status :</strong> {{ reservation.statut }}</p>
+
+      <div>
+        <h5>Sous-Services :</h5>
+        <ul>
+          <li *ngFor="let ss of reservation.sousServices">
+            {{ ss.nom }} ({{ ss.ville }}) - {{ ss.prix }} TND
+          </li>
+        </ul>
+      </div>
+
+      <p><strong>Prix Total :</strong> {{ reservation.totalPrix }} TND</p>
+
+      <div *ngIf="reservation.statut === 'EN_ATTENTE'" style="margin-top: 10px;">
+        <button (click)="updateReservationStatus(reservation, 'approuvee')" class="btn-approve">Valider</button>
+        <button (click)="updateReservationStatus(reservation, 'refusee')" class="btn-decline">Refuser</button>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #noReservations>
+    <p style="text-align: center;">Aucune réservation pour le moment.</p>
+  </ng-template>
+</section>
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+  </div>
+  <div class="profile-container" *ngIf="utilisateur">
+  <h2 #profil>Profil de l'utilisateur</h2>
+  <p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
+  <p><strong>Prénom :</strong> {{ utilisateur.prenom }}</p>
+  <p><strong>Email :</strong> {{ utilisateur.email }}</p>
+  <p><strong>Rôle :</strong> {{ utilisateur.role }}</p>
+</div>
+  </body>
+
+  <footer id="footer" class="footer_area">
+          <div class="footer_shape_1">
+              <img src="assets/images/shape-1.png" alt="shape">
+          </div> <!-- shape -->
+          
+          <div class="container">
+              <div class="footer_widget pt-80 pb-80 text-center">
+                  <div class="footer_logo">
+                      <a href="#"><img src="assets/images/logo3.png" alt="logo"></a>
+                  </div>
+                  <ul class="footer_menu">
+                      <li><a href="#">S'inscrie</a></li>
+                      <li><a href="#">Se connecter</a></li>
+                  </ul>
+              </div> <!-- footer content -->
+
+          </div> <!-- container -->
+      </footer>
+
+<!--====== BACK TO TOP ======-->
+<a href="#" class="back-to-top"><i class="lni lni-chevron-up"></i></a>
+
+<!--====== JS SCRIPTS ======-->
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/vendor/modernizr-3.7.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.easing.min.js"></script>
+<script src="/assets/js/scrolling-nav.js"></script>
+<script src="/assets/js/wow.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+</html>

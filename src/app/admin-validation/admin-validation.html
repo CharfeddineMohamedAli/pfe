@@ -1,0 +1,8 @@
+<h2>Prestataires en attente d’approbation</h2>
+<ul>
+  <li *ngFor="let u of prestataires">
+    {{ u.nom }} {{ u.prenom }} - {{ u.email }}
+    <button (click)="approuver(u.id)">Approuver</button>
+  </li>
+</ul>
+

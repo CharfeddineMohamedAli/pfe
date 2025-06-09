@@ -1,0 +1,121 @@
+.email-wrapper {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 24px rgb(112 177 77 / 0.12),
+    0 0 8px rgb(112 177 77 / 0.15);
+  overflow: hidden;
+  border: 1px solid #d3e2c6;
+}
+
+/* Header */
+.header {
+  background-color: #70b14d;
+  padding: 30px 25px;
+  text-align: center;
+  color: #fff;
+}
+
+.header img {
+  width: 140px;
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 1px #4a7a2d);
+}
+
+.header h1 {
+  font-weight: 700;
+  font-size: 28px;
+  margin: 0;
+  letter-spacing: 1.1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* Body Content */
+.content {
+  padding: 30px 40px 40px 40px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444c38;
+}
+
+.content h2 {
+  font-weight: 600;
+  color: #52722e;
+  margin-bottom: 18px;
+  letter-spacing: 0.05em;
+}
+
+.content p {
+  margin-bottom: 22px;
+}
+
+ul.details-list {
+  padding-left: 20px;
+  margin-bottom: 30px;
+  list-style: inside disc;
+  color: #57762e;
+}
+
+ul.details-list li {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.button-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: #70b14d;
+  color: #fff !important;
+  text-decoration: none;
+  padding: 14px 32px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgb(112 177 77 / 0.35);
+  display: inline-block;
+  transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  user-select: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #5b922c;
+  box-shadow: 0 8px 20px rgb(91 146 44 / 0.55);
+  outline: none;
+}
+
+/* Footer */
+.footer {
+  background-color: #e1efce;
+  font-size: 13px;
+  color: #627938;
+  text-align: center;
+  padding: 15px 20px;
+  font-weight: 500;
+  border-top: 1px solid #c1db9d;
+  letter-spacing: 0.03em;
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+  .email-wrapper {
+    margin: 20px 10px;
+  }
+  .content {
+    padding: 20px 20px 30px 20px;
+    font-size: 15px;
+  }
+  .header h1 {
+    font-size: 24px;
+  }
+  .btn-primary {
+    width: 100%;
+    padding: 16px 0;
+  }
+}

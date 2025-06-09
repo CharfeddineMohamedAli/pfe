@@ -21,13 +21,23 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+                "src/assets",
+                "src/dist",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "node_modules/ngx-toastr/toastr.css",
+              "src/styles.scss",
+               "src/assets/css/default.css",
+                "src/assets/css/animate.css",
+                 "src/assets/css/LineIcons.css",
+                  "src/assets/css/bootstrap.min.css",
+                 "src/assets/css/style.css"
+
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -86,7 +96,13 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss",
+               "src/assets/css/default.css",
+                "src/assets/css/animate.css",
+                 "src/assets/css/LineIcons.css",
+                  "src/assets/css/bootstrap.min.css",
+                 "src/assets/css/style.css"
             ]
           }
         }
