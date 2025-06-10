@@ -42,7 +42,7 @@ typeEvenement: TypeEvenementRequestDTO = {
           this.typeEvenement = { titre: '', serviceIds: [] }; // reset form
         },
         error: (error) => {
-          alert('Erreur lors de l\'ajout');
+          alert('événement existe');
           console.error(error);
         }
       });

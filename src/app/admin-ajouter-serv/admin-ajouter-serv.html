@@ -419,18 +419,21 @@
                     <!--begin::Header-->
                     <!--end::Header-->
                     <!--begin::Form-->
-                   <form (ngSubmit)="onSubmit()" #serviceForm="ngForm">
-                    <div class="mb-3">
-  <label for="image" class="form-label">Image</label>
-  <input
-    type="file"
-    class="form-control"
-    id="image"
-    name="image"
-    (change)="onImageSelected($event)"
-    required
-  />
-</div>
+              <form (ngSubmit)="onSubmit()" #serviceForm="ngForm">
+  <!-- Image -->
+  <div class="mb-3">
+    <label for="image" class="form-label">Image</label>
+    <input
+      type="file"
+      class="form-control"
+      id="image"
+      name="image"
+      (change)="onImageSelected($event)"
+      required
+    />
+  </div>
+
+  <!-- Nom de service avec validation -->
   <div class="mb-3">
     <label for="nom" class="form-label">Nom de service</label>
     <input
@@ -439,17 +442,29 @@
       id="nom"
       name="nom"
       required
+      minlength="3"
       [(ngModel)]="service.nom"
+      #nomRef="ngModel"
     />
+    <div *ngIf="nomRef.invalid && nomRef.touched" class="text-danger mt-1">
+      <div *ngIf="nomRef.errors?.['required']">Le nom du service est requis.</div>
+      <div *ngIf="nomRef.errors?.['minlength']">
+        Le nom du service doit contenir au moins 3 caractères.
+      </div>
+    </div>
   </div>
 
-
-
-  <!-- (Facultatif si utilisateur connecté est prestataire) -->
-  <input type="hidden" [(ngModel)]="service.prestataire.id" name="prestataireId" />
+  <!-- Champ caché pour l'id du prestataire -->
+  <input
+    type="hidden"
+    [(ngModel)]="service.prestataire.id"
+    name="prestataireId"
+  />
 
   <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid">
+      Ajouter
+    </button>
   </div>
 </form>
 

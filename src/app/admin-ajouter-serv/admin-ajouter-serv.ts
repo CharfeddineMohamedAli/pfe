@@ -58,7 +58,7 @@ activeMenu: string | null = null;
       },
       error: (err) => {
         console.error(err);
-        alert('Erreur lors de l\'ajout du service.');
+        alert('Service existe déja.');
       }
     });
 }

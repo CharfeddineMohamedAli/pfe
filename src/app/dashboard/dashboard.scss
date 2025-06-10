@@ -157,3 +157,15 @@ body {
 strong {
   color: #555;
 }
+.btn-approve {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.btn-approve:hover {
+  background-color: #218838;
+}

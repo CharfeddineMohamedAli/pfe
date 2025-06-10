@@ -73,7 +73,14 @@
         class="form-input"
         required
         [(ngModel)]="email"
+        #emailRef="ngModel"
       />
+      <div *ngIf="emailRef.invalid && emailRef.touched" class="error-message">
+        <div *ngIf="emailRef.errors?.['required']">Email est requis.</div>
+        <div *ngIf="emailRef.errors?.['minlength']">
+          L'email doit contenir au moins 4 caractères.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -84,11 +91,19 @@
         name="motPasse"
         class="form-input"
         required
+        minlength="4"
         [(ngModel)]="motPasse"
+        #motPasseRef="ngModel"
       />
+      <div *ngIf="motPasseRef.invalid && motPasseRef.touched" class="error-message">
+        <div *ngIf="motPasseRef.errors?.['required']">Mot de passe est requis.</div>
+        <div *ngIf="motPasseRef.errors?.['minlength']">
+          Le mot de passe doit contenir au moins 4 caractères.
+        </div>
+      </div>
     </div>
 
-    <button class="box-button" type="submit">Se connecter</button>
+    <button class="box-button" type="submit" [disabled]="f.invalid">Se connecter</button>
   </form>
 </div>
 
