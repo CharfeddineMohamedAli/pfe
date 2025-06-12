@@ -198,7 +198,7 @@
 
 
     <!-- Budget -->
-    <label for="budgetMax">Budget Maximum (€)</label>
+    <label for="budgetMax">Budget Maximum (TND)</label>
     <input type="number" id="budgetMax" name="budgetMax" [(ngModel)]="eventRequest.budgetMax" required>
 
     <button type="submit">Voir les sous-services disponibles</button>
@@ -214,12 +214,13 @@
       <p><strong>Sous-service :</strong> {{ ss.nom }}</p>
       <p><strong>Ville :</strong> {{ ss.ville }}</p>
       <p><strong>Prestataire :</strong> {{ ss.prestataire.nom }}</p>
-      <p><strong>Prix :</strong> {{ ss.prix }} €</p>
+      <p><strong>Prix :</strong> {{ ss.prix }} TND</p>
     </div>
 
-    <p><strong>Total:</strong> {{ p.total }} €</p>
-    <button (click)="reserverSousService(p)" class="btn-approve">Réserver ce pack</button>
-  </div>
+<p><strong>Total:</strong> {{ p.total }} TND</p>
+<button *ngIf="p.total > 0" (click)="reserverSousService(p)" class="btn-approve">
+  Réserver ce pack
+</button>  </div>
 </div>
 
 <!-- S'il n'y a aucun résultat -->

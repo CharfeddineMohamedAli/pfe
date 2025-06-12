@@ -237,8 +237,11 @@ getonefromSousServices(serviceId: any): any[] {
 getSousServices(serviceId: any): any[] {
   const service = this.servicesDuType.find(s => s.id === serviceId);
   if (service) {
-    // Filter out the "locale" sous-services
-    const filteredSousServices = service.sousServices.filter(sousService => sousService.nom !== 'locale');
+    const filteredSousServices = service.sousServices
+      .filter(sousService => sousService.nom !== 'locale')
+      .filter((sousService, index, self) =>
+        index === self.findIndex(s => s.nom === sousService.nom)
+      );
     return filteredSousServices;
   }
   return [];
