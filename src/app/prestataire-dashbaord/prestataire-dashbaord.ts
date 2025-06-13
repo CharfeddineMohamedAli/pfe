@@ -140,6 +140,8 @@ updateReservationStatus(reservation: any, status: string): void {
   };
 
   this.http.put(url, requestBody).subscribe(() => {
+          console.log("update status done");
+
     this.fetchReservations(); // Refresh after update
   });
 }
