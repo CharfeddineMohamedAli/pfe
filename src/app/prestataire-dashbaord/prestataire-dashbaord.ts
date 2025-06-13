@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-prestataire-dashbaord',
@@ -26,7 +27,7 @@ eventTypes: EventType[] = [];
           ville = '';
 utilisateur : any;
 
-  constructor(private apiService: ApiService, private http:HttpClient, private router: Router) {
+  constructor(private apiService: ApiService, private http:HttpClient, private router: Router,private toastr: ToastrService) {
    
   }
 
@@ -139,12 +140,22 @@ updateReservationStatus(reservation: any, status: string): void {
     statut: status.toUpperCase() // e.g., "APPROUVEE"
   };
 
-  this.http.put(url, requestBody).subscribe(() => {
-          console.log("update status done");
-
-    this.fetchReservations(); // Refresh after update
-  });
+  this.http.put(url, requestBody).subscribe({
+  next: () => {
+    this.toastr.success('Réservation envoyée pour validation 🎉', 'Succès');
+window.location.reload();
+    // Call fetch method here
+    this.fetchReservations(); // Replace with the actual method name if different
+  },
+  error: err => {
+    this.toastr.error('Le service est déjà réservé pour cette période.');
+  }
+});
 }
+
+
+ 
+
 
 deconnexion(){
   localStorage.setItem('nom','');
