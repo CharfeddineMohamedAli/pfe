@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-liste-serv',
-      imports: [CommonModule],
+      imports: [CommonModule, FormsModule],
       standalone: true,
   templateUrl: './admin-liste-serv.html',
   styleUrl: './admin-liste-serv.scss'
@@ -36,26 +37,76 @@ convertToImageUrl(imageBytes: any): string {
   
   return `data:image/png;base64,${imageBytes}`; // ou 'image/jpeg' selon besoin
 }
+deleteService(id: number) {
+  // Vérifie d'abord s'il y a des sous-services
+  this.http.get<boolean>(`http://localhost:8080/api/services/${id}/hasSousServices`).subscribe({
+    next: (hasSousServices: boolean) => {
+      // Message de confirmation conditionnel
+      let message = hasSousServices
+        ? '⚠️ Ce service contient des sous-services. Voulez-vous vraiment tout supprimer ?'
+        : 'Confirmer la suppression du service ?';
 
-  deleteService(id: number) {
-    if (confirm('Confirmer la suppression du service ?')) {
-      this.http.delete(`http://localhost:8080/api/services/${id}`).subscribe({
-        next: () => {
-          this.services = this.services.filter(s => s.id !== id);
-        },
-        error: (err) => {
-          console.error('Erreur suppression', err);
-          alert('Erreur lors de la suppression.');
-        }
-      });
+      if (confirm(message)) {
+        // Suppression si l'utilisateur confirme
+        this.http.delete(`http://localhost:8080/api/services/${id}`).subscribe({
+          next: () => {
+            // Met à jour la liste localement
+            this.services = this.services.filter(s => s.id !== id);
+            alert('Service supprimé avec succès.');
+          },
+          error: (err) => {
+            console.error('Erreur suppression', err);
+            alert('Erreur lors de la suppression.');
+          }
+        });
+      }
+    },
+    error: (err) => {
+      console.error('Erreur vérification des sous-services', err);
+      alert('Erreur lors de la vérification des sous-services.');
     }
+  });
+}
+selectedFile: File | null = null;
+
+modalVisible = false;
+selectedService: any = null;
+
+openModal(service: any) {
+  this.selectedService = { ...service };
+  this.modalVisible = true;
+}
+
+closeModal(event?: any) {
+  // si clic sur le background ou bouton annuler
+  if (!event || event.target.classList.contains('modal')) {
+    this.modalVisible = false;
+  }
+}
+onUpdateService() {
+  const formData = new FormData();
+  formData.append('nom', this.selectedService.nom);
+  formData.append('description', this.selectedService.description);
+  formData.append('prix', this.selectedService.prix);
+  formData.append('prestataireId', this.selectedService.prestataireId || '1');
+
+  if (this.selectedFile) {
+    formData.append('image', this.selectedFile);
   }
 
-  editService(service: any) {
-    // Ex: naviguer vers un formulaire d’édition, ou afficher un formulaire modifiable
-    console.log('Modifier service', service);
-    // Tu peux par exemple ouvrir un modal ou remplir un formulaire
-  }
+  this.http.put(`http://localhost:8080/api/services/${this.selectedService.id}`, formData).subscribe({
+    next: (res) => {
+      console.log('Service mis à jour', res);
+      this.closeModal();
+      this.loadServices(); // recharge la liste
+  this.modalVisible = false;
+        window.location.reload();
+    },
+    error: (err) => {
+      console.error('Erreur MAJ', err);
+    }
+  });
+}
 toggleSubmenu(menu: string) {
   this.activeMenu = this.activeMenu === menu ? null : menu;
 }

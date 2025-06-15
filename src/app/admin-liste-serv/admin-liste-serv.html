@@ -444,12 +444,34 @@
       </td>
     
     <td>
-      <button type="button" class="btn btn-warning me-2" (click)="editService(s)">Modifier</button>
+      <button type="button" class="btn btn-warning me-2" (click)="openModal(s)">Modifier</button>
       <button type="button" class="btn btn-danger" (click)="deleteService(s.id)">Supprimer</button>
     </td>
   </tr>
 </tbody>
 </table>
+<!-- Modal Bootstrap -->
+<div class="modal" [class.show]="modalVisible" (click)="closeModal($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Modifier le service</h2>
+    
+    <form *ngIf="selectedService" (ngSubmit)="onUpdateService()">
+      <label>Nom:</label>
+      <input type="text" [(ngModel)]="selectedService.nom" name="nom" required />
+
+      <label>Description:</label>
+      <input type="text" [(ngModel)]="selectedService.description" name="description" />
+
+      <label>Prix:</label>
+      <input type="number" [(ngModel)]="selectedService.prix" name="prix" />
+
+      <button type="submit">Enregistrer</button>
+      <button type="button" (click)="closeModal()">Annuler</button>
+    </form>
+
+  </div>
+</div>
+
 
                   </div>
                   <!-- /.card-body -->
