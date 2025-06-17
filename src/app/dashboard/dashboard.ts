@@ -364,7 +364,9 @@ sousServiceNom: this.selectedSousServicesNames,
     };
 
     this.http.post('http://localhost:8080/api/reservations', body).subscribe({
-    next: () => this.toastr.success('Réservation envoyée pour validation 🎉', 'Succès'),
+    next: () => {this.toastr.success('Réservation envoyée pour validation 🎉', 'Succès')
+            window.location.reload()}
+,
     error: err => this.toastr.error('Le service est déjà réservé pour cette période.')
     });
   });
