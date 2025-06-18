@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class AdminListeServ implements OnInit {
 activeMenu: string | null = null;
 services: any[] = [];
+selectedImage: File | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -84,11 +85,17 @@ closeModal(event?: any) {
   }
 }
 onUpdateService() {
+  
+  if (!this.selectedImage) {
+    alert('Veuillez sélectionner une image');
+    return;
+  }
   const formData = new FormData();
   formData.append('nom', this.selectedService.nom);
   formData.append('description', this.selectedService.description);
   formData.append('prix', this.selectedService.prix);
   formData.append('prestataireId', this.selectedService.prestataireId || '1');
+  formData.append('image', this.selectedImage);
 
   if (this.selectedFile) {
     formData.append('image', this.selectedFile);
@@ -109,5 +116,12 @@ onUpdateService() {
 }
 toggleSubmenu(menu: string) {
   this.activeMenu = this.activeMenu === menu ? null : menu;
+}
+
+onImageSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.selectedImage = input.files[0];
+  }
 }
 }

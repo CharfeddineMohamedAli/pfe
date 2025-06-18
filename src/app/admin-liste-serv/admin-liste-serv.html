@@ -456,8 +456,21 @@
     <h2>Modifier le service</h2>
     
     <form *ngIf="selectedService" (ngSubmit)="onUpdateService()">
+
+        <div class="mb-3">
+    <label for="image" class="form-label">Image</label>
+    <input
+      type="file"
+      class="form-control"
+      id="image"
+      name="image"
+      (change)="onImageSelected($event)"
+      required
+    />
+
       <label>Nom:</label>
       <input type="text" [(ngModel)]="selectedService.nom" name="nom" required />
+  </div>
 
       <button type="submit">Enregistrer</button>
       <button type="button" (click)="closeModal()">Annuler</button>
